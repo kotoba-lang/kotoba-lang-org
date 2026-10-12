@@ -2918,6 +2918,8 @@
 (def org-identity-copy (reader/read-string (fs/readFileSync "site/org-identity-article.edn" "utf8")))
 (def infra-cost-copy (reader/read-string (fs/readFileSync "site/infra-cost-article.edn" "utf8")))
 
+(def selfhost-status-copy (reader/read-string (fs/readFileSync "site/selfhost-status-article.edn" "utf8")))
+
 (defn- article-section
   [{:keys [title paragraphs rows table table-2 steps after paragraphs-after stories graph]}]
   [:section
@@ -2990,6 +2992,12 @@
       (dds/heading 1 "Evidence before slogans" {:size "48"})
       [:p {:class "kot-lead"}
        "Short notes about language design, measurements, shipped boundaries, and what still remains unqualified."]]
+     [:article {:class "kot-blog-entry" :translate "no" :lang "en"}
+      [:p {:class "kot-eyebrow"} "12 October 2026 · Native selfhost · Paused / 停止"]
+      (dds/heading 2 "Native selfhost checkpoint / native selfhostの現状" {:size "32"})
+      [:p "Three-generation byte-identical seed rebuild; exploratory improvements, C target unmet. / 3世代バイト一致。探索値は改善、Cの目標は未達。"]
+      [:p [:a {:class "kot-link" :href "/blog/native-selfhost-status-20261012/"} "English"] " · "
+       [:a {:class "kot-link" :href "/ja/blog/native-selfhost-status-20261012/" :lang "ja"} "日本語"]]]
      [:article {:class "kot-blog-entry"}
       [:p {:class "kot-eyebrow"} "10 September 2026 · Infrastructure"]
       (dds/heading 2 (:title infra-cost-copy) {:size "32"})
@@ -3777,6 +3785,22 @@
 (fs/copyFileSync "docs/security/csf2-threat-model.md" "site/dist/security/csf2-threat-model.md")
 ;; Raw spec markdown for agents and readers who want the source document.
 (fs/copyFileSync "site/spec/org-identity-adr.md" "site/dist/spec/org-identity-adr.md")
+
+;; Dated checkpoint has reviewed English and Japanese source; other locale
+;; blog indexes link to both explicitly instead of implying a translation.
+(doseq [tag ["en" "ja"]]
+  (let [copy (get selfhost-status-copy (keyword tag))
+        article-path (str (when (= tag "ja") "/ja") "/blog/native-selfhost-status-20261012/")
+        dir (str "site/dist" article-path)
+        rendered (page/->page
+                  {:title (:title copy) :description (:description copy) :lang tag :css dds-css :dark? true
+                   :app-css (str tokens/skin-css "\n" app-css "\n.kot-blog-entry{overflow-wrap:anywhere;min-width:0}")
+                   :head (list (favicon-link) (apple-touch-icon-link) [:script theme-js] [:script menu-js]
+                               (og-head article-path (:title copy) (:description copy)))}
+                  (locales/mark-language (blog-article-view {:copy copy :path article-path :eyebrow "2026-10-12 · Native selfhost checkpoint"}) tag))]
+    (fs/mkdirSync dir #js {:recursive true})
+    (fs/writeFileSync (path/join dir "index.html") rendered)))
+(fs/copyFileSync "site/native-selfhost-status-20261012.json" "site/dist/benchmarks/native-selfhost-status-20261012.json")
 
 (fs/writeFileSync "site/dist/_redirects" "/zh /zh-Hans/ 301\n/zh/* /zh-Hans/:splat 301\n")
 
