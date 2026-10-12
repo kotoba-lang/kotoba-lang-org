@@ -75,21 +75,28 @@
     "full 19 fresh timing comparison",
     "C performance target",
     "whole product selfhost and typed KIR/KEXE assurance",
-    "reviewed integration of historical snapshot with current main safety fixes",
+    "whole-product selfhost qualification",
     "verified analysis cache and accelerator/low precision optimization"
   ],
   "preservation_commit": "3eace60393ac711da7f243d72cca813cbe911fef",
-  "published_source_url": "https://github.com/kotoba-lang/amu/tree/f86c2a6f06e55d77b22a574ac91df59590212cdc/seed",
-  "resume_url": "https://github.com/kotoba-lang/amu/blob/3eace60393ac711da7f243d72cca813cbe911fef/docs/evidence/native-selfhost-paused-20261012/README.md",
+  "published_source_url": "https://github.com/kotoba-lang/amu/tree/9acb3f7d1fc9659f4a5e5690b5c611d1b4915855/seed/preserved-20261012",
+  "resume_url": "https://github.com/kotoba-lang/amu/blob/9acb3f7d1fc9659f4a5e5690b5c611d1b4915855/docs/evidence/native-selfhost-paused-20261012/README.md",
   "main_merge_review": {
-    "recommendation": "revise",
+    "recommendation": "merge",
+    "pr": "https://github.com/kotoba-lang/amu/pull/1291",
     "analyzed_main": "03c72db2a23699ed365ce18bda0f9230764cd60e",
-    "head": "3eace60393ac711da7f243d72cca813cbe911fef",
-    "reasons": [
-      "Preserve current main explicit-policy refusal; historical snapshot uses an unqualified text scanner",
-      "Historical loader hash differs from its mandatory fuzz coverage baseline",
-      "Reconcile with separately integrated main seed and run exact merged-head checks"
-    ]
+    "head": "b5897edf51f921011819ab323ea5c8e3d8a40c41",
+    "resolution": "Current main optimizer/production loader retained; preserved source is an independent closure; explicit policy including missing values refused in check/compile and project routes; source-bound fuzz covers public/trusted loaders on Linux x64/arm64",
+    "policy_refusal_cases_per_closure": 34,
+    "fixed_point_generations_per_closure": 3,
+    "unchanged_images_per_closure": 19,
+    "performance_measurement": false,
+    "merged_commit": "9acb3f7d1fc9659f4a5e5690b5c611d1b4915855",
+    "all_final_ci_passed": true,
+    "all_review_threads_resolved": true
   },
-  "evidence_archive_url": "https://github.com/kotoba-lang/amu/blob/3eace60393ac711da7f243d72cca813cbe911fef/docs/evidence/native-selfhost-paused-20261012/evidence.tgz"
+  "evidence_archive_url": "https://github.com/kotoba-lang/amu/blob/9acb3f7d1fc9659f4a5e5690b5c611d1b4915855/docs/evidence/native-selfhost-paused-20261012/evidence.tgz",
+  "safety_integration_head": "b5897edf51f921011819ab323ea5c8e3d8a40c41",
+  "reintegration_receipt_url": "https://github.com/kotoba-lang/amu/blob/9acb3f7d1fc9659f4a5e5690b5c611d1b4915855/docs/evidence/native-selfhost-paused-20261012/reintegration.json",
+  "safety_integration_main_commit": "9acb3f7d1fc9659f4a5e5690b5c611d1b4915855"
 }
