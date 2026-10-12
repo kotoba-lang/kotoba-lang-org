@@ -3794,7 +3794,7 @@
         dir (str "site/dist" article-path)
         rendered (page/->page
                   {:title (:title copy) :description (:description copy) :lang tag :css dds-css :dark? true
-                   :app-css (str tokens/skin-css "\n" app-css)
+                   :app-css (str tokens/skin-css "\n" app-css "\n.kot-blog-entry{overflow-wrap:anywhere;min-width:0}")
                    :head (list (favicon-link) (apple-touch-icon-link) [:script theme-js] [:script menu-js]
                                (og-head article-path (:title copy) (:description copy)))}
                   (locales/mark-language (blog-article-view {:copy copy :path article-path :eyebrow "2026-10-12 · Native selfhost checkpoint"}) tag))]
