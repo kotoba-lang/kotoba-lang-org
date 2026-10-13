@@ -3,4 +3,4 @@
 ;; copies them in before the build; advancing this commit is how a spec
 ;; change reaches the page, and it records which spec a deploy described.
 {:repository "https://github.com/kotoba-lang/kotoba-lang.git"
- :commit "e32535c4049487be96ac168eb932ff618a6a23e1"}
+ :commit "a0bd3eabe39abc81cc14a85b465c4b2a8cb6d833"}
