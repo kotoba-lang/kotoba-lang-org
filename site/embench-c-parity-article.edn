@@ -1,6 +1,6 @@
 {:en {:title "Kotoba native performance: Embench at 0.800× C time, 15 October 2026"
 :description "In a verified full 19-workload round on an Apple M4, translated Kotoba programs ran in 0.800× of C's execution time (geometric mean). Correction: a later audit found kernels that substitute the benchmark algorithm in five workloads; a corrected round with same-algorithm kernels only will follow."
-:intro "Correction, 15 October 2026, after publication: an audit of the measured compiler found certified kernels that substitute the benchmark's algorithm instead of only optimizing it, in huffbench, qrduino, tarfind, ud and picojpeg, and nettle-sha256 uses the SHA-256 instructions. The 0.800× figure includes them. A corrected round with same-algorithm kernels only and no crypto instructions will follow; details are in the Correction section. The C-or-faster goal is met for this measurement. A complete, independently verified round on 15 October timed all 19 translated Kotoba workloads and all 19 C workloads on the same host. Kotoba time / C is 0.7999 in geometric mean (0.800×), down from 2.954× in Round 85 on 13 October. Thirteen workloads now run faster than their C versions; six are still slower. Read the disclosures below before quoting the number."
+:intro "Superseded: the corrected round with same-algorithm kernels only and no crypto instructions measured 0.821× C time; see the newer report linked under Evidence. Correction, 15 October 2026, after publication: an audit of the measured compiler found certified kernels that substitute the benchmark's algorithm instead of only optimizing it, in huffbench, qrduino, tarfind, ud and picojpeg, and nettle-sha256 uses the SHA-256 instructions. The 0.800× figure includes them. A corrected round with same-algorithm kernels only and no crypto instructions will follow; details are in the Correction section. The C-or-faster goal is met for this measurement. A complete, independently verified round on 15 October timed all 19 translated Kotoba workloads and all 19 C workloads on the same host. Kotoba time / C is 0.7999 in geometric mean (0.800×), down from 2.954× in Round 85 on 13 October. Thirteen workloads now run faster than their C versions; six are still slower. Read the disclosures below before quoting the number."
 :notice "These are measurements of translated Kotoba programs using the upstream Embench speed driver and formula, with a revised per-workload iteration count. They are not a certified official Kotoba Embench score, a released-toolchain result, or a claim of speed on other hosts or other programs."
 :sections [{:title "Correction: kernel audit after publication"
 :paragraphs ["After this report was published we adopted a stricter rule for certified kernels: a kernel may change how a function's work is executed (instruction selection, scheduling, unrolling, SIMD, register-held copies, hoisted checks), never what work is executed. Closed forms, simulations on a copy, new run-time data structures, reuse across repetitions and different algorithms are not allowed; unclear cases count as not allowed. Every kernel in the compiler was then audited against that rule."
@@ -51,7 +51,8 @@
 {:title "What is still slower than C"
 :paragraphs ["xgboost (1.957×), slre (1.881×), sglib-combined (1.612×), picojpeg (1.600×), statemate (1.355×) and md5sum (1.032×) are slower than C, and wikisort is close at 0.965×. Work on picojpeg, slre, sglib, xgboost and md5sum is continuing; it is not part of this result."]}]
 :source-title "Evidence"
-:links [{:label "Reproduction package (four verification levels)" :url "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015"}
+:links [{:label "Corrected round: 0.821× C time with same-algorithm kernels" :url "/blog/embench-same-algorithm-20261015/"}
+{:label "Reproduction package (four verification levels)" :url "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015"}
 {:label "Kernel policy and audit tables" :url "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015/audit"}
 {:label "Machine-readable result, samples, multipliers and hashes" :url "/benchmarks/embench-official-20261015.json"}
 {:label "Protocol revision and amendments (full text)" :url "/benchmarks/embench-official-20261015/protocol-revision.txt"}
@@ -66,7 +67,7 @@
 {:label "Embench upstream at the measured revision" :url "https://github.com/embench/embench-iot/tree/09c2ed8c3b7008c95d08b038de4a3f6dc103ed70"}]}
 :ja {:title "Kotoba ネイティブ性能：Embench で C の 0.800 倍の実行時間（2026年10月15日）"
 :description "Apple M4 上の全19本・検証済みの測定で、Kotoba へ移植したプログラムの実行時間は C の 0.800 倍（幾何平均）でした。訂正：公開後の監査で、5本のワークロードにベンチマークのアルゴリズムを置き換えるカーネルが見つかりました。同一アルゴリズムのカーネルだけで再測定します。"
-:intro "2026年10月15日・公開後の訂正：測定したコンパイラを監査したところ、huffbench、qrduino、tarfind、ud、picojpeg で、最適化にとどまらずベンチマークのアルゴリズムを置き換える認証済みカーネルが見つかりました。また nettle-sha256 は SHA-256 命令を使っています。0.800 倍という値にはこれらが含まれます。同一アルゴリズムのカーネルだけを使い、暗号命令を使わない測定を改めて行います。詳細は「訂正」の節をご覧ください。この測定で「C 以上」という目標を達成しました。10月15日の測定では、移植版 Kotoba 19本と C 19本を同じホストで計測し、独立した検証を通過しました。「Kotoba の実行時間 ÷ C」の幾何平均は 0.7999（0.800 倍）で、10月13日の Round 85 の 2.954 倍から下がりました。13本は C より速く、6本はまだ C より遅いままです。数値を引用する前に、下の注意事項をお読みください。"
+:intro "更新：同一アルゴリズムのカーネルだけを使い、暗号命令を使わない訂正後の測定では C の 0.821 倍の実行時間でした。証跡欄の新しい報告をご覧ください。2026年10月15日・公開後の訂正：測定したコンパイラを監査したところ、huffbench、qrduino、tarfind、ud、picojpeg で、最適化にとどまらずベンチマークのアルゴリズムを置き換える認証済みカーネルが見つかりました。また nettle-sha256 は SHA-256 命令を使っています。0.800 倍という値にはこれらが含まれます。同一アルゴリズムのカーネルだけを使い、暗号命令を使わない測定を改めて行います。詳細は「訂正」の節をご覧ください。この測定で「C 以上」という目標を達成しました。10月15日の測定では、移植版 Kotoba 19本と C 19本を同じホストで計測し、独立した検証を通過しました。「Kotoba の実行時間 ÷ C」の幾何平均は 0.7999（0.800 倍）で、10月13日の Round 85 の 2.954 倍から下がりました。13本は C より速く、6本はまだ C より遅いままです。数値を引用する前に、下の注意事項をお読みください。"
 :notice "Kotoba へ移植したプログラムを、上流 Embench の速度測定ドライバと計算式で、ワークロードごとの反復回数を改訂して測った結果です。認定された公式 Kotoba Embench スコア、リリース版の性能値、他の環境や他のプログラムでの速度を示すものではありません。"
 :sections [{:title "訂正：公開後のカーネル監査"
 :paragraphs ["この報告の公開後、認証済みカーネルの規則を厳しくしました。カーネルが変えてよいのは関数の処理の実行方法（命令選択、スケジューリング、展開、SIMD、レジスタ上の写し、検査の前倒し）だけで、行う処理そのものは変えてはいけません。閉じた式による計算、写しの上での模擬実行、新しい実行時データ構造、反復をまたぐ再利用、別のアルゴリズムは認めず、判断が分かれるものも認めない側に数えます。この規則でコンパイラの全カーネルを監査しました。"
@@ -117,7 +118,8 @@
 {:title "まだ C より遅いもの"
 :paragraphs ["xgboost（1.957倍）、slre（1.881倍）、sglib-combined（1.612倍）、picojpeg（1.600倍）、statemate（1.355倍）、md5sum（1.032倍）は C より遅く、wikisort は 0.965倍で僅差です。picojpeg、slre、sglib、xgboost、md5sum の改善作業は続いていますが、今回の結果には含まれていません。"]}]
 :source-title "証跡"
-:links [{:label "再現パッケージ（4段階の検証）" :url "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015"}
+:links [{:label "訂正後の測定：同一アルゴリズムのカーネルで C の 0.821 倍" :url "/ja/blog/embench-same-algorithm-20261015/"}
+{:label "再現パッケージ（4段階の検証）" :url "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015"}
 {:label "カーネルの規則と監査表" :url "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015/audit"}
 {:label "機械可読な結果・標本・倍率・ハッシュ" :url "/benchmarks/embench-official-20261015.json"}
 {:label "測定手順の改訂と追補（全文）" :url "/benchmarks/embench-official-20261015/protocol-revision.txt"}
