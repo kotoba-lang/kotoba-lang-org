@@ -3035,7 +3035,7 @@
    (blog-article-view {:copy (get embench-c-parity-copy locale)
                        :path "/blog/embench-c-parity-20261015/"
                        :locales #{"en" "ja"}
-                       :eyebrow (if (= locale :ja) "2026年10月15日 · ネイティブ性能 · 検証済みの測定" "15 October 2026 · Native performance · Verified round")})
+                       :eyebrow (if (= locale :ja) "2026年10月15日 · ネイティブ性能 · 検証済みの測定 · 訂正あり" "15 October 2026 · Native performance · Verified round · Corrected")})
    (name locale)))
 
 (defn blog-view []
