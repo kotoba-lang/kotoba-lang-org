@@ -684,5 +684,50 @@
       "file": "/benchmarks/embench-official-20261015/verifier-review.json",
       "sha256": "822ebe0923368bcb702be468840acd2e98483e1c070b6c3de1cb9d3158201157"
     }
-  ]
+  ],
+  "correction": {
+    "date": "2026-10-15",
+    "after": "publication",
+    "summary": "A kernel audit under a stricter same-algorithm-only rule found certified kernels in the measured compiler that substitute the benchmark algorithm. The measurement and its exactness are unchanged; the 0.800x figure includes these kernels and is not a same-algorithm comparison. A corrected round will follow.",
+    "rule": "A kernel may change how a function executes (instruction selection, scheduling, unrolling, SIMD, register-held copies, hoisted checks, integer-reduction reassociation, dead-store elimination, load CSE, compile-time table repacking), never what work is executed; closed forms, simulation on a copy, new run-time data structures, reuse across repetitions and different algorithms are not allowed; unclear cases count as not allowed.",
+    "substitutionKernels": [
+      {
+        "workload": "huffbench",
+        "kernels": [
+          "sort-table: run merge on a copy",
+          "decode-bits: per-call scan table, telescoped charges",
+          "encode-bits: per-symbol shifts replace the per-bit loop"
+        ]
+      },
+      {
+        "workload": "qrduino",
+        "kernels": [
+          "all-runs: bit words, transpose, clz",
+          "blocks-row: packed-bit evaluation (unclear, counted)",
+          "mask-row: packed-bit evaluation (unclear, counted)"
+        ]
+      },
+      {
+        "workload": "tarfind",
+        "kernels": [
+          "seed generator: every second seed from two steps back (unclear, counted)"
+        ]
+      },
+      {
+        "workload": "ud",
+        "kernels": [
+          "init at column 0: closed-form row sums"
+        ]
+      },
+      {
+        "workload": "picojpeg",
+        "kernels": [
+          "whole-block IDCT: DC-only lanes through the AC butterfly (unclear, counted; < 1% of picojpeg)"
+        ]
+      }
+    ],
+    "cryptoInstructions": "nettle-sha256 uses the ARMv8 SHA-256 instructions; the corrected round uses the scalar path",
+    "auditTables": "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015/audit"
+  },
+  "reproductionPackage": "https://github.com/kotoba-lang/amu/tree/claude/embench-c-parity-m93-20261015/bench/embench/reproduce-20261015"
 }
