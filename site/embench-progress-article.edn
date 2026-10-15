@@ -1,6 +1,6 @@
 {:en {:title "Kotoba native performance: Embench progress, updated 13 October 2026"
 :description "Latest main Round 85: Kotoba takes 2.954× C execution time across all 19 workloads. The C-or-faster goal is unmet; optimization is paused and unadopted candidates are preserved."
-:intro "Latest main integration and the complete Round 85 comparison are verified. Kotoba takes 2.954× C execution time in geometric mean. Optimization is paused; adopted and unadopted work are distinguished, and candidates are preserved for an explicit future restart."
+:intro "Update, 15 October 2026: a later verified round measured 0.800× C time; see the newer report linked under Evidence. The text below is the 13 October report, unchanged. Latest main integration and the complete Round 85 comparison are verified. Kotoba takes 2.954× C execution time in geometric mean. Optimization is paused; adopted and unadopted work are distinguished, and candidates are preserved for an explicit future restart."
 :notice "These are exploratory measurements of translated Kotoba programs using the upstream Embench speed driver and formula. They are not a certified official Kotoba Embench score, a released-toolchain result, or a claim of speed on other hosts."
 :sections [{:title "Current closeout: paused, objective unmet" :paragraphs ["Optimization stopped on 13 October under the approved budget condition. This publication and handoff do not resume it. No new candidate was adopted after main PR #1295. Latest complete main Round85 remains 2.954× Kotoba time / C; C is faster overall." "Adopted: the complete previously qualified compiler closure bounded byte lookup (PR #1293) and descriptor reuse across two certified scalar calls (PR #1295) are integrated in main. Earlier adopted passes include masked XOR private literal-width specialization call-result comparisons stack operand reuse signed division by two and cached bounds checks. Source and artifact hashes rather than this abbreviated list identify the product. There is no minimum5% improvement cutoff." "Unadopted: all seven two-argument fuel-cache variants are preserved as reproducible source patches with hashes and verification status. Older broad descriptor-witness and conditional-fallthrough candidates retain their historical archives. Their results are excluded from the adopted-main full19 table."]}
 {:title "Unadopted candidate measurements — ON/OFF, not Kotoba/C" :paragraphs ["Each row below is a separate program-image probe on Joseph: fixed OFF/ON/OFF/ON one warmup and one accepted sample per slot raw pre/post and background CPU idle each at least70% first CPU-qualified sample and at most3 CPU-only attempts. Ratios are candidate time / adopted-baseline time.1.00 is equal; larger is slower. They are not C comparisons full19 scores or statistical effects." "V3: SG was faster in both pairs (median about3.96% shorter); Pico pairs were mixed (median about1.68% longer). V4 did not establish an SG gain; V6 SG was slower in both pairs (median about3.86% longer). V5 generated all39 baseline-identical images and was not timed. No gain is obtained by adding percentages across these different probes."] :table {:headers ["Candidate" "Pico ON/OFF" "SG ON/OFF"] :row-header? true :rows [["v3" "1.016823" "0.960373"] ["v4" "1.002800" "1.003660"] ["v6" "1.000930" "1.038582"]] :caption "Exploratory two-pair probes. SG means sglib-combined. No candidate in this table is adopted."}}
@@ -121,7 +121,8 @@
 "At that pause, the statemate timing files had been transferred and custody checked, but the timing campaign had not started. The bounded byte-lookup candidate was then a source prototype, with compiler execution and runtime qualification pending."
 "At the earlier snapshot, optimization agents and the C-or-faster goal were paused. Evidence, worktrees and unfinished candidates are retained for a deliberate future restart. No performance goal completion is claimed."]}]
 :source-title "Evidence"
-:links [{:label "Current work status" :url "/benchmarks/embench-work-status-20261013.json"}
+:links [{:label "Newer report: 0.800× C time, 15 October 2026" :url "/blog/embench-c-parity-20261015/"}
+{:label "Current work status" :url "/benchmarks/embench-work-status-20261013.json"}
 {:label "Candidate review and measurement scopes" :url "/benchmarks/embench-candidate-review-20261013.json"}
 {:label "Paused handoff and source archive" :url "https://github.com/kotoba-lang/kotoba-lang/blob/main/docs/benchmarks/embench-handoff-20261013.md"}
 
@@ -135,7 +136,7 @@
 :url "https://github.com/embench/embench-iot/tree/09c2ed8c3b7008c95d08b038de4a3f6dc103ed70"}]}
 :ja {:title "Kotoba ネイティブ性能：Embench の進捗（2026年10月13日更新）"
 :description "最新mainのRound 85・全19本比較では、Kotobaの実行時間はCの2.954倍。C以上という目標は未達で、高速化作業は停止中です。"
-:intro "最新mainの統合とRound 85・全19本の比較を確認しました。「Kotobaの実行時間 ÷ C」の幾何平均は2.954倍です。採用済みと未採用を区別して候補を保存し、高速化作業は停止中です。C以上という目標は未達です。"
+:intro "2026年10月15日追記：その後の検証済みの測定では C の 0.800 倍の実行時間になりました。証跡欄の新しい報告をご覧ください。以下は10月13日の報告のままです。最新mainの統合とRound 85・全19本の比較を確認しました。「Kotobaの実行時間 ÷ C」の幾何平均は2.954倍です。採用済みと未採用を区別して候補を保存し、高速化作業は停止中です。C以上という目標は未達です。"
 :notice "Kotobaへ移植したプログラムを、上流Embenchの速度測定ドライバと計算式で測った探索的な結果です。認定された公式Kotoba Embenchスコア、リリース版の性能値、他の環境での速度を示すものではありません。"
 :sections [{:title "現在の作業結果：停止中・目標は未達" :paragraphs ["10月13日に承認済みの予算条件で高速化作業を停止しました。この公開更新と引き継ぎ整備によってゴールは再開しません。mainのPR #1295以降、新たに採用した候補はありません。採用済みmainの最新全19本比較は「Kotobaの実行時間 ÷ C」が2.954倍で、全体ではCが速く、目標は未達です。" "採用済み：従来の検証済みコンパイラ一式、汎用の境界付きバイトルックアップ（PR #1293）、認証済みスカラー呼び出し2回をまたぐディスクリプタ再利用（PR #1295）はmainへ統合済みです。以前の採用分には、masked XOR、非公開関数のリテラル幅特化、呼び出し結果の比較、スタック値の再利用、2による符号付き除算、成功済み境界チェックの再利用があります。この要約よりも、ソースと生成画像のハッシュが製品の識別根拠です。5%未満を一律に見送る基準はありません。" "未採用：汎用2引数の燃料キャッシュ候補7版は、復元可能なソース差分・ハッシュ・検証状況とともに保存しました。以前の広いディスクリプタ根拠再利用と条件分岐の継続経路の候補も、従来の保存資料を維持しています。これらの結果は採用済みmainの全19本比較には含めていません。"]}
 {:title "未採用候補の個別測定：ON/OFFであり、Cとの比較ではありません" :paragraphs ["下表はJoseph上の別々の画像を測った探索的な比較です。OFF/ON/OFF/ONの固定順序、各枠ウォームアップ1回と合格標本1回、測定前後の生CPUアイドルと推定背景アイドル各70%以上、CPU条件だけ最大3回の再試行で最初の合格標本を採用しました。数値は「候補の実行時間 ÷ 採用済み版の実行時間」です。1.00が同速、大きいほど遅く、C比較や全19本のスコア、統計的に確立した効果ではありません。" "v3はsglibが2組とも速く、中央値で約3.96%短縮しましたが、picojpegは結果が混在し中央値で約1.68%増えました。v4ではsglibの改善を確認できず、v6はsglibが2組とも遅く中央値で約3.86%増えました。v5は全39画像が採用済み版と同一になったため速度測定を省きました。異なる試行の改善率を足し合わせた全体改善は主張していません。"] :table {:headers ["候補" "picojpeg ON/OFF" "sglib ON/OFF"] :row-header? true :rows [["v3" "1.016823" "0.960373"] ["v4" "1.002800" "1.003660"] ["v6" "1.000930" "1.038582"]] :caption "探索的な2組の比較。sglibはsglib-combined。いずれも未採用です。"}}
@@ -256,7 +257,8 @@
 "停止時点では、statemate用の性能測定ファイルは転送・同一性確認まで済み、測定本体は未起動でした。当時のバイト表引き候補はソース試作までで、コンパイラ実行と実行時の検証は未実施でした。"
 "当時は最適化エージェントとC以上というゴールを一時停止し、証拠・専用作業ブランチ・未完了候補を保存しました。その後、上記のとおり作業を再開しました。目標は未達です。"]}]
 :source-title "測定データと出典"
-:links [{:label "現在の作業状態" :url "/benchmarks/embench-work-status-20261013.json"}
+:links [{:label "新しい報告：C の 0.800 倍の実行時間（2026年10月15日）" :url "/ja/blog/embench-c-parity-20261015/"}
+{:label "現在の作業状態" :url "/benchmarks/embench-work-status-20261013.json"}
 {:label "候補の検証・測定範囲" :url "/benchmarks/embench-candidate-review-20261013.json"}
 {:label "停止状態の引き継ぎ資料とソース保存" :url "https://github.com/kotoba-lang/kotoba-lang/blob/main/docs/benchmarks/embench-handoff-20261013.md"}
 
